@@ -1,14 +1,27 @@
-import getHealth from "../app";
+import sortPlayers from "../app";
 
 test.each([
-    ['', 100, 'healthy'],
-    ['', 51, 'healthy'],
-    ['', 50, 'wounded'],
-    ['', 15, 'wounded'],
-    ['', 14, 'critical']
+    [[
+        {name: 'мечник', health: 10},
+        {name: 'маг', health: 100},
+        {name: 'лучник', health: 80},
+      ], [
+        {name: 'маг', health: 100},
+        {name: 'лучник', health: 80},
+        {name: 'мечник', health: 10},
+      ]],
+      [[
+        {name: 'мечник', health: 100},
+        {name: 'маг', health: 100},
+        {name: 'лучник', health: 0},
+      ], [
+        {name: 'мечник', health: 100},
+        {name: 'маг', health: 100},
+        {name: 'лучник', health: 0},
+      ]],
 ])(
-('should return the correct result of health status'), (name, health, expected) => {
-    let result = getHealth({name, health});
+('should return the correct sort players'), (input, expected) => {
+    let result = sortPlayers(input);
 
-    expect(result).toBe(expected);
+    expect(result).toEqual(expected);
 })
